@@ -35,7 +35,7 @@ def	send_mail(smtp_obj, email_name_dict, message_template):
         msg_object['To']=email_name_dict[keys]
         msg_object['Subject']="HERE BE A MAIL!"
         msg_object.attach(MIMEText(edited_message_content, 'plain'))
-#        smtp_obj.send_message(msg_object)
+        smtp_obj.send_message(msg_object)
         print ("\t-> ", email_name_dict[keys])
         del msg_object
 
