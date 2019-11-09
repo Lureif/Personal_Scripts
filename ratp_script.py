@@ -17,17 +17,22 @@ def	errors(err_code):
 
 def	run_script(direction):
     if (direction == "home"):
-    	url	 = "https://api-ratp.pierre-grimaud.fr/v4/schedules/tramways/3b/marie+de+miribel/R"        
+    	url	 = "https://api-ratp.pierre-grimaud.fr/v4/schedules/tramways/3b/marie+de+miribel/R"
     elif (direction == "school"):
         url	 = "https://api-ratp.pierre-grimaud.fr/v4/schedules/tramways/3b/honore+de+balzac/A"
     url_response = urllib.request.urlopen(url)
     json_data	 = json.loads(url_response.read())
+    #print(json_data);
+    print("====================================================")
     print("====================== TRAM 1 ======================")
+    print("====================================================")
     print(json_data["result"]["schedules"][0]["destination"])
     print(json_data["result"]["schedules"][0]["message"])
+    print("====================================================")
     print("====================== TRAM 2 ======================")
+    print("====================================================")
     print(json_data["result"]["schedules"][1]["destination"])
-    print(json_data["result"]["schedules"][1]["message"])
+    print(json_data["result"]["schedules"][1]["message"])    
     return (0)
 
 def	main(ac, av):
@@ -36,7 +41,7 @@ def	main(ac, av):
     if (av[1] in ["school", "home"]):
         for i in range(15):
             run_script(av[1])
-            time.sleep(15)
+            time.sleep(60)
     else:
         errors(2)
     return (0)
