@@ -1,0 +1,10 @@
+(defun parenthesize (word)
+  "Wraps word in parens, then jumps to beginning of next word."
+  (interactive "p")
+  (forward-word)
+  (insert ?\))
+  (backward-word)
+  (insert ?\()
+  (forward-word)
+  (forward-word)
+  (backward-word))
