@@ -1,0 +1,100 @@
+#!/bin/sh
+
+######################### VARIABLES #########################
+## paths to stuff
+MinePath=~/Games/minecraft/minecraft-launcher/minecraft-launcher
+GoosePath=~/Games/Untitled.Goose.Game/Untitled.Goose.Game/
+IsaacPath=~/Games/The.Binding.of.Isaac.Afterbirth.Plus.Update.22/
+
+
+#### NOT WORKING ####
+#GoatPath=~/.wine/drive_c/Program\ Files\ \(x86\)/Goat\ Simulator/Binaries/Win32/
+#SimpsonPath="~/.wine/drive_c/Program Files (x86)/R.G. Mechanics/The Simpsons - Hit & Run/Simpsons.exe"
+#####################
+
+## emulator ROMs paths
+VBAPath=~/Games/Emulation/GBA/
+N64Path=~/Games/Emulation/N64/
+NDSPath=~/Games/Emulation/NDS/
+NGCPath=~/Games/Emulation/NGC/
+
+PSXEmuPath=~/Games/Emulation/PSX/PSX_EMU/ePSXe.exe
+
+## strings for message
+Titles="goose / minecraft / isaac / dwarf"
+Emulators="psx / n64 / vba / nds / ngc"
+
+## messages
+msg_Availlable="Availlable titles: $Titles\nAvaillable emulators: $Emulators\n"
+msg_Usage="usage: ./play <title>"
+#############################################################
+
+playvar="$(echo -e "***PC***\nUntitled Goose Game\nMinecraft\nThe Binding Of Isaac\nDwarf Fortress\nDOOM 1\nDOOM 2\nDOOM 3\nDOOM PLUTONIA\nDOOM TNT\n***EMU***\nPSX\nVBA\nN64\nNDS\nNGC" | dmenu -l 20)"
+
+if [ ! -z "$playvar" ]; then
+    case $playvar in
+	"Untitled Goose Game")
+	    echo "Running Untitle goose game"
+	    wine $GoosePath/UnityCrashHandler64.exe & wine $GoosePath/Untitled.exe
+	    ;;
+	"Minecraft")
+	    echo "Running Minecraft"
+	    exec $MinePath
+	    ;;
+	"The Binding Of Isaac")
+	    echo "Running The Binding of Isaac"
+	    cd $IsaacPath && wine $IsaacPath/isaac-ng.exe &
+	    cd -
+	    ;;
+	"Dwarf Fortress")
+	    echo "Running Dwarf Fortress"
+	    dwarffortress
+	    ;;
+	"DOOM 1")
+	    echo "Running doom!\n"
+	    crispy-doom -iwad ~/Games/Wads/Doom1.WAD
+	    ;;
+	"DOOM 2")
+	    echo "Running doom 2!\n"
+	    crispy-doom -iwad ~/Games/Wads/Doom2.WAD
+	    ;;
+	"DOOM 3")
+	    echo "Running doom 2!\n"
+	    crispy-doom -iwad ~/Games/Wads/Doom3.WAD
+	    ;;
+	"DOOM PLUTONIA")
+	    echo "Running doom plutonia!\n"
+	    crispy-doom -iwad ~/Games/Wads/Plutonia.wad
+	    ;;
+	"DOOM TNT")
+	    echo "Running doom tnt!\n"
+	    crispy-doom -iwad ~/Games/Wads/Tnt.wad
+	    ;;
+	"PSX")
+	    echo "Running ePSXe"
+	    wine $PSXEmuPath &
+	    ;;
+	"VBA")
+	    echo "ah yes, nostalgia."
+	    visualboyadvance-m $VBAPath/"$(ls $VBAPath | dmenu -l 10)"
+	    ;;
+	"N64")
+	    echo "ah yes, more nostalgia."
+	    mupen64plus --fullscreen $N64Path/"$(ls $N64Path | dmenu -l 10)"
+	    ;;
+	"NDS")
+	    echo "ah yes, canada nostalgia."
+	    desmume $NDSPath/"$(ls $NDSPath | dmenu -l 10)"
+	    ;;
+	"NGC")
+	    echo "ah yes, canada nostalgia."
+	    dolphin-emu $NGCPath/"$(ls $NGCPath | dmenu -l 10)"
+	    ;;
+	*)
+	    echo " '$1' : No such game or emulator."
+	    echo -e "$msg_Usage\n$msg_Availlable"
+	    ;;
+    esac
+else
+    echo -e "$msg_Usage\n$msg_Availlable"
+fi

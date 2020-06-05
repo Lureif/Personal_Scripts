@@ -1,0 +1,10 @@
+#!/bin/sh
+
+curl https://corona-stats.online/ > ~/.cache/corona
+case "$1" in
+    "France")
+	grep "Country\|France" ~/.cache/corona | sed "s/\s*//g ; s/|/;/g" | cut -d';' -f 2,4
+	;;
+    *)
+	echo "et non!"
+esac
