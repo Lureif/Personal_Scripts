@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "$1" == "tv" ] ;
+then
+    xrandr --newmode  "TV-mode"  $(gtf 1920 1080 60 | sed "3q;d" | cut -d " " -f 5-) &&
+	xrandr --addmode HDMI-A-0 "TV-mode" &&
+	xrandr --output HDMI-A-0 --mode "TV-mode" ; echo "HDMI TV should be usable!"
+elif [ "$1" == "notv" ];
+then
+     xrandr --output HDMI-A-0 --off;
+     echo "HDMI TV turned off"
+fi

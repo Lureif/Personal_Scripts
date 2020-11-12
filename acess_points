@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "$1" == "list" ] ;
+then
+	nmcli dev wifi list
+elif [ "$1" == "connect" ] && [ -n $2 ] ;
+then
+	echo "connecting to $2!"
+	nmcli edv wifi connect $2
+else
+	echo "no options passed."
+fi
